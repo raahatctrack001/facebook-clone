@@ -1,5 +1,4 @@
-import mongoose, { mongo } from 'mongoose';
-import { type } from 'os';
+import mongoose from 'mongoose';
 const userSchema = new mongoose.Schema(
     {
         fName : {
@@ -57,9 +56,17 @@ const userSchema = new mongoose.Schema(
             ref: "Network",
         },
         extraInfo: {
-            type: mongoose.Schema.types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId,
             ref: "ExtraInfo"
         },
+        emailLinkedAccount: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+        },
+        phoneLinkedAccount: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+        }
     }, 
     {
         timestamps: true,
