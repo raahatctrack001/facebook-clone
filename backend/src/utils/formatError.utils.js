@@ -1,4 +1,4 @@
-class sendError extends Error{
+class errorPacket extends Error{
     constructor(statusCode, message="Something went WRONG!", errors = [], stack=""){
         super(message);
         this.statusCode = statusCode;
@@ -14,4 +14,4 @@ class sendError extends Error{
         }
     }
 }
-export default sendError;
+export default errorPacket;

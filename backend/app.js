@@ -33,7 +33,7 @@ app.use(express.urlencoded(
 
 // import router
 import router from "./src/routers/auth.router.js";
-import sendResponse from "./src/utils/formatResponse.utils.js";
+import responsePacket from "./src/utils/formatResponse.utils.js";
 
 
 
@@ -50,7 +50,7 @@ app.use((err, req, res, next)=>{
     res
     .status(err.statusCode || 500)
     .json(
-        new sendResponse(err.statusCode || 500, err.message || "something went wrong!", null)
+        new responsePacket(err.statusCode || 500, err.message || "something went wrong!", null)
     )
 })
 

@@ -1,4 +1,4 @@
-class sendResponse {
+class responsePacket {
     constructor(statusCode, message, data, success){
         // super(message); // no need of super here
         this.statusCode = statusCode || 500;
@@ -8,4 +8,4 @@ class sendResponse {
     }
 }
 
-export default sendResponse;
+export default responsePacket;
