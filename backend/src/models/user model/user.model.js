@@ -1,15 +1,11 @@
 import mongoose from 'mongoose';
 const userSchema = new mongoose.Schema(
     {
-        fName : {
+        fullName : {
             type: String, 
             required: [true, "First Name is required"],
             trim: true,
-            maxlength: 40,
-        },
-        lName: {
-            type: String,
-            trim: true,
+            maxlength: [40, "Max character should not exceed 50 character"],
         },
         username: {
             type: String,
@@ -24,6 +20,10 @@ const userSchema = new mongoose.Schema(
             require: [true, "E-mail is required"],
             trim: true,
             lowercase: true,
+        },
+        phone: {
+            type: String,
+            trim: true,
         },
         password: {
             type: String,
@@ -59,14 +59,14 @@ const userSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "ExtraInfo"
         },
-        emailLinkedAccount: {
+        emailLinkedAccount: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
-        },
-        phoneLinkedAccount: {
+        }],
+        phoneLinkedAccount: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
-        }
+        }]
     }, 
     {
         timestamps: true,

@@ -2,26 +2,26 @@ import mongoose from 'mongoose';
 
 const networkSchema = new mongoose.Schema(
     {
-        friends: {
+        friends: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
-        },
-        followings: {
+        }],
+        followings: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
-        },
-        followers: {
+        }],
+        followers: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
-        },
-        requests: {
+        }],
+        requests: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
-        },
-        recentSearch: {
+        }],
+        recentSearch: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
-        },
+        }],
     },
     {
         timestamps: true,

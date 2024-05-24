@@ -1,9 +1,9 @@
 class sendResponse {
     constructor(statusCode, message, data, success){
         // super(message); // no need of super here
-        this.data = data;
         this.statusCode = statusCode || 500;
         this.message = message;
+        this.data = data;
         this.success = statusCode < 400;
     }
 }

@@ -1,11 +1,29 @@
 import mongoose from "mongoose";
 
 const addressSchema = new mongoose.Schema({
+  locality: { // house no + floor no
+    type: String,
+    required: true,
+    trim: true,
+    maxlength: 50  
+  },
+  landmark: {
+    type: String,
+    required: true,
+    trim: true,
+    maxlength: 50  
+  },
   streetAddress: {
     type: String,
     required: true,
     trim: true,
     maxlength: 50
+  },
+  district: {
+    type: String,
+    required: true,
+    trim: true,
+    maxlength: 50  
   },
   city: {
     type: String,
