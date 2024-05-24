@@ -31,4 +31,18 @@ app.use(express.urlencoded(
     }
 ));
 
+// import router
+import router from "./src/routers/auth.router.js";
+
+
+
+app.use("/api/v1/auth", router);
+
+
+
+
+
+
+
+
 export default app;
