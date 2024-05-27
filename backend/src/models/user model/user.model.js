@@ -1,11 +1,14 @@
 import mongoose from 'mongoose';
+import bcryptjs from 'bcryptjs';
+import jwt from 'jsonwebtoken'
+
 const userSchema = new mongoose.Schema(
     {
         fullName : {
             type: String, 
             required: [true, "First Name is required"],
             trim: true,
-            maxlength: [40, "Max character should not exceed 50 character"],
+            maxlength: [50, "Max character should not exceed 50 character"],
         },
         username: {
             type: String,
@@ -29,6 +32,7 @@ const userSchema = new mongoose.Schema(
             type: String,
             require: [true, "Password is required"],
             trim: true,
+            select: true,
         },
         profilePhoto: {
             type: String,
@@ -66,12 +70,66 @@ const userSchema = new mongoose.Schema(
         phoneLinkedAccount: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
-        }]
+        }],
+        refreshToken: {
+            type: String
+        }
     }, 
     {
         timestamps: true,
     }
 );
+
+userSchema.pre("save", function (next) {
+    if(!this.isModified("password")) return next();
+
+    this.password = bcryptjs.hashSync(this.password, 10)
+    next()
+})
+
+userSchema.methods.isPasswordCorrect = function(password){
+    return bcryptjs.compareSync(password, this.password)
+}
+
+userSchema.methods.generateAccessToken = function(){
+    return jwt.sign(
+        {
+            _id: this._id,
+            email: this.email,
+            username: this.username,
+            fullName: this.fullName,
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+        }
+    )
+}
+
+userSchema.methods.generateRefreshToken = function(){
+    return jwt.sign(
+        {
+            _id: this._id,
+            
+        },
+        process.env.REFRESH_TOKEN_SECRET,
+        {
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+        }
+    )
+}
+
+userSchema.methods.generateVerificationToken = function(){
+    return jwt.sign(
+        {
+            _id: this._id,
+        },
+        process.env.VERIFICATION_TOKEN_SECRET,
+        {
+            expiresIn: 30*60*1000,
+        }
+    )
+}
 
 const User = new mongoose.model("User", userSchema);
 export default User;

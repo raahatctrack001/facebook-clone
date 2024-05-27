@@ -35,8 +35,6 @@ app.use(express.urlencoded(
 import router from "./src/routers/auth.router.js";
 import responsePacket from "./src/utils/formatResponse.utils.js";
 
-
-
 app.use("/api/v1/auth", router);
 
 
@@ -47,7 +45,7 @@ app.use("/api/v1/auth", router);
 
 
 app.use((err, req, res, next)=>{
-    res
+    return res
     .status(err.statusCode || 500)
     .json(
         new responsePacket(err.statusCode || 500, err.message || "something went wrong!", null)
